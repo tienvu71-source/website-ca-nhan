@@ -1,0 +1,21 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (p) => !p.data.draft);
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, date, category } = post.data;
+---
+<Base title={title} description={description} type="article">
+  <article class="post narrow" style="padding:3rem 0">
+    <span class="tag">{category}</span>
+    <h1>{title}</h1>
+    <time class="meta" datetime={date.toISOString()}>{date.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })}</time>
+    <div class="body"><Content /></div>
+    <p class="note">Nội dung mang tính tham khảo, không phải tư vấn pháp lý hay tài chính. Quy định có thể thay đổi, hãy kiểm tra lại với cơ quan có thẩm quyền trước khi giao dịch.</p>
+    <div class="actions"><a class="btn" href="/lien-he">Cần tư vấn thêm? Liên hệ tôi</a><a class="btn alt" href="/blog">← Tất cả bài viết</a></div>
+  </article>
+</Base>

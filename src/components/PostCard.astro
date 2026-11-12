@@ -1,0 +1,10 @@
+---
+interface Props { id: string; title: string; description: string; date: Date; category: string; }
+const { id, title, description, date, category } = Astro.props;
+---
+<article class="card">
+  <span class="tag">{category}</span>
+  <h3><a href={`/blog/${id}`}>{title}</a></h3>
+  <p class="muted" style="margin:0">{description}</p>
+  <time class="meta" datetime={date.toISOString()}>{date.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })}</time>
+</article>

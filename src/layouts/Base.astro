@@ -1,0 +1,60 @@
+---
+import '../styles/global.css';
+import { SITE } from '../config';
+interface Props { title?: string; description?: string; type?: 'website' | 'article'; }
+const { title, description = SITE.description, type = 'website' } = Astro.props;
+const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name}: ${SITE.role}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const path = Astro.url.pathname.replace(/\/$/, '');
+const links = [
+  ['/', 'Trang chủ'],
+  ['/blog', 'Blog'],
+  ['/ve-toi', 'Về tôi'],
+  ['/lien-he', 'Liên hệ'],
+];
+---
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:url" content={canonical} />
+    <meta name="theme-color" content="#14304f" />
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap">
+        <a class="logo" href="/">{SITE.name}</a>
+        <nav aria-label="Điều hướng chính">
+          {links.map(([href, label]) => (
+            <a href={href} aria-current={path === href || (href !== '/' && path.startsWith(href)) ? 'page' : undefined}>{label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+    <main><slot /></main>
+    <footer class="site">
+      <div class="wrap">
+        <div>
+          <strong>{SITE.name}</strong> · {SITE.role}<br />{SITE.area}
+        </div>
+        <div>
+          <a href={`tel:${SITE.phone.replace(/\s/g, '')}`}>{SITE.phone}</a> ·
+          <a href={SITE.zalo}>Zalo</a> ·
+          <a href={`mailto:${SITE.email}`}>Email</a> ·
+          <a href="/rss.xml">RSS</a><br />
+          © {new Date().getFullYear()} {SITE.name}
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

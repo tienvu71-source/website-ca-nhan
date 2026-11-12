@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+const tel = SITE.phone.replace(/\s/g, '');
+---
+<Base title="Liên hệ" description="Liên hệ để được tư vấn mua, bán, thuê và đầu tư bất động sản.">
+  <section class="narrow">
+    <h1>Liên hệ</h1>
+    <p class="muted">Cho tôi biết bạn muốn mua, bán hay thuê, khu vực và ngân sách dự kiến. Tôi phản hồi trong vòng 24 giờ.</p>
+    <div class="grid" style="margin-top:1.5rem">
+      <a class="card" href={`tel:${tel}`}><strong>Điện thoại</strong><span>{SITE.phone}</span></a>
+      <a class="card" href={SITE.zalo}><strong>Zalo</strong><span>Nhắn tin nhanh</span></a>
+      <a class="card" href={`mailto:${SITE.email}`}><strong>Email</strong><span>{SITE.email}</span></a>
+      <a class="card" href={SITE.facebook}><strong>Facebook</strong><span>Theo dõi cập nhật</span></a>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
+import { SITE } from '../config';
+const posts = (await getCollection('blog', (p) => !p.data.draft)).sort((a, b) => +b.data.date - +a.data.date);
+const latest = posts.slice(0, 3);
+const topics = ['Mua nhà lần đầu', 'Đầu tư an toàn', 'Pháp lý & thủ tục', 'Thị trường & xu hướng'];
+---
+<Base>
+  <section class="hero wrap">
+    <p class="eyebrow">{SITE.role}</p>
+    <h1>{SITE.tagline}</h1>
+    <p class="lead">{SITE.description}</p>
+    <div class="actions">
+      <a class="btn" href="/blog">Đọc blog</a>
+      <a class="btn alt" href="/lien-he">Nhận tư vấn miễn phí</a>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>Chủ đề chính</h2>
+      <div class="grid">
+        {topics.map((t) => <div class="card"><h3>{t}</h3></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Bài viết mới nhất</h2>
+    <div class="grid">
+      {latest.map((p) => <PostCard id={p.id} {...p.data} />)}
+    </div>
+    <p><a href="/blog">Xem tất cả bài viết →</a></p>
+  </section>
+
+  <section class="wrap">
+    <div class="cta">
+      <h2>Bạn đang cân nhắc mua, bán hoặc đầu tư?</h2>
+      <p>Chia sẻ nhu cầu của bạn, tôi sẽ phản hồi trong vòng 24 giờ.</p>
+      <a class="btn" href="/lien-he">Liên hệ ngay</a>
+    </div>
+  </section>
+</Base>

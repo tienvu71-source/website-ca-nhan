@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+---
+<Base title="Về tôi" description={`${SITE.name}, ${SITE.role}. Giá trị làm việc và cam kết với khách hàng.`}>
+  <section class="narrow">
+    <p class="eyebrow">Về tôi</p>
+    <h1>Xin chào, tôi là {SITE.name}</h1>
+    <p>{SITE.role}. [Viết 2-3 câu giới thiệu: số năm kinh nghiệm, khu vực, loại sản phẩm bạn mạnh nhất.]</p>
+    <h2>Cam kết làm việc</h2>
+    <ul>
+      <li>Thông tin minh bạch: pháp lý, quy hoạch, giá thị trường.</li>
+      <li>Tư vấn theo nhu cầu và ngân sách thật của bạn, không chạy theo hoa hồng.</li>
+      <li>Đồng hành từ xem nhà, thương lượng đến hoàn tất thủ tục.</li>
+    </ul>
+    <h2>Con số và thành tích</h2>
+    <p class="muted">[Điền số liệu thật: số giao dịch, số khách hàng, đánh giá. Không ghi số liệu chưa kiểm chứng.]</p>
+    <div class="actions"><a class="btn" href="/lien-he">Liên hệ tôi</a></div>
+  </section>
+</Base>

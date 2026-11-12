@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+const posts = (await getCollection('blog', (p) => !p.data.draft)).sort((a, b) => +b.data.date - +a.data.date);
+---
+<Base title="Blog" description="Kinh nghiệm mua bán, đầu tư, thuê bất động sản và cập nhật thị trường.">
+  <section class="wrap">
+    <h1>Blog</h1>
+    <p class="muted">Kinh nghiệm thực tế về mua bán, đầu tư và thuê bất động sản.</p>
+    <div class="grid">
+      {posts.map((p) => <PostCard id={p.id} {...p.data} />)}
+    </div>
+  </section>
+</Base>
